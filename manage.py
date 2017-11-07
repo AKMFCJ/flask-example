@@ -23,14 +23,14 @@ COV = coverage.coverage(
     include='app/*',
     omit=[
         'app/tests/*',
-        'app/server/config.py',
+        'app/config.py',
         'app/*/__init__.py'
     ]
 )
 
 COV.start()
 
-from app.server import app, db
+from app import app, db
 
 migrate = Migrate(app, db)
 manager = Manager(app)

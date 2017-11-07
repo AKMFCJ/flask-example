@@ -5,7 +5,7 @@ import datetime
 # JSON web token的库
 import jwt
 
-from app.server import app, db, bcrypt
+from app import app, db, bcrypt
 
 
 class User(db.Model):
@@ -21,6 +21,8 @@ class User(db.Model):
     icon_url = db.Column(db.String, nullable=False, default='')
     # o 停用 1 正常
     status = db.Column(db.Integer, nullable=False)
+    # 邮箱地址是否验证
+    email_confirmed = db.Column(db.Boolean, nullable=False, default=False)
 
     def __init__(self, email, password, display_name='', icon_url=''):
         self.email = email
@@ -31,6 +33,7 @@ class User(db.Model):
         self.display_name = display_name
         self.icon_url = icon_url
         self.status = 1
+        self.email_confirmed = False
 
     def encode_auth_token(self, user_id):
         """
